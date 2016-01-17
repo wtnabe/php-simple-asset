@@ -1,0 +1,18 @@
+{
+    "name": "wtnabe/simple-asset",
+    "type": "vcs",
+    "license": "New BSD",
+    "authors": [
+        {
+            "name": "wtnabe",
+            "email": "wtnabe@gmail.com"
+        }
+    ],
+    "minimum-stability": "beta",
+    "require": {},
+    "require-dev": {
+        "jaz303/phake": "0.6.0",
+        "phpunit/phpunit": "4.8.x-dev",
+        "instaclick/php-code-sniffer": "1.4.2"
+    }
+}
