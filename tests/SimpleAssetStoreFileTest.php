@@ -7,7 +7,7 @@ class SimpleAssetStoreFileTest extends \PHPUnit_Framework_TestCase
 
     function setUp()
     {
-        $this->store = new SimpleAssetStoreFile(array('store_base' => dirname(__FILE__).'/support'));
+        $this->store = new SimpleAssetStoreFile(array('store_dir' => dirname(__FILE__).'/support'));
     }
 
     function testDigestFile()

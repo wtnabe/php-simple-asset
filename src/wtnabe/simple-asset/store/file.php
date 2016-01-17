@@ -27,7 +27,7 @@ class SimpleAssetStoreFile extends SimpleAssetStoreBase
                             '/\/+/',
                             '/',
                             join('/',
-                                 array($this->config['store_base'],
+                                 array($this->config['store_dir'],
                                        $path)
                                  )
                             );

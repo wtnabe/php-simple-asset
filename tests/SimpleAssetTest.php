@@ -24,8 +24,8 @@ class SimpleAssetTest extends \PHPUnit_Framework_TestCase
 
     function testConfigWithoutArgs()
     {
-        SimpleAsset::config(array('store'      => 'file',
-                                  'store_base' => dirname(__FILE__).'/support'));
+        SimpleAsset::config(array('store'     => 'file',
+                                  'store_dir' => dirname(__FILE__).'/support'));
 
         $config = SimpleAsset::config();
         $this->assertTrue(is_array($config));
@@ -48,8 +48,8 @@ class SimpleAssetTest extends \PHPUnit_Framework_TestCase
 
     function testPath_with_correct_path()
     {
-        SimpleAsset::config(array('store'      => 'file',
-                                  'store_base' => dirname(__FILE__).'/support'));
+        SimpleAsset::config(array('store'     => 'file',
+                                  'store_dir' => dirname(__FILE__).'/support'));
 
         $this->assertEquals(
                             '/stylesheets/common.css?012345',
