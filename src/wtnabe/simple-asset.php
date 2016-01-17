@@ -13,6 +13,31 @@ foreach ( ___files(dirname(__FILE__).'/simple-asset') as $file ) {
 
 class SimpleAsset
 {
+    /**
+     * @param  string $opts
+     * @return string
+     */
+    static function config($opts = null)
+    {
+        static $config;
+
+        if ( is_array($opts) ) {
+            $config = $opts;
+        }
+
+        return $config;
+    }
+
+    /**
+     * @param  string $path
+     * @return string
+     */
+    public static function path($path)
+    {
+        $store = SimpleAssetStore::factory();
+
+        return "{$store->path($path)}";
+    }
 }
 
 /*
