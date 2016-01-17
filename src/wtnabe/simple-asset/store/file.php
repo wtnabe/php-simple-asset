@@ -2,33 +2,40 @@
 class SimpleAssetStoreFile extends SimpleAssetStoreBase
 {
     /**
-     * @param  array $args
-     * @return array
+     * @param  string $path
+     * @return string
      */
-    function __construct($args)
+    function digest($path)
     {
-        $this->config = array_merge(array('manifest' => null), $args);
+        $file = $this->_digestFile($path);
+
+        if ( file_exists($file) and is_readable($file) ) {
+            return rtrim(file_get_contents($file));
+        } else {
+            $this->_warn_digest_not_found($path);
+            return '';
+        }
     }
 
     /**
      * @param  string $path
      * @return string
      */
-    function digest($path)
+    function _digestFile($path)
     {
-        $manifest = json_decode(file_get_contents($this->config['manifest']), true);
-
-         if ( array_key_exists($path, $manifest) ) {
-             return $manifest[$path];
-         } else {
-             $this->_warn_digest_not_found($path);
-             return '';
-         }
+        return preg_replace(
+                            '/\/+/',
+                            '/',
+                            join('/',
+                                 array($this->config['store_base'],
+                                       $path)
+                                 )
+                            );
     }
  }
 
- /*
- Local Variables:
- c-basic-offset: 4
- End:
- */
+/*
+Local Variables:
+c-basic-offset: 4
+End:
+*/

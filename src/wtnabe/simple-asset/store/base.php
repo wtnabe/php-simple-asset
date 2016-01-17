@@ -4,7 +4,17 @@ class SimpleAssetStoreBase
     /**
      * @var array
      */
-    var $config = array();
+    var $config;
+
+    /**
+     * @param array $opts
+     */
+    function __construct($opts = null)
+    {
+        if ( is_array($opts) and sizeof($opts) > 0 ) {
+            $this->config = SimpleAsset::config($opts);
+        }
+    }
 
     /**
      *  override me !!
