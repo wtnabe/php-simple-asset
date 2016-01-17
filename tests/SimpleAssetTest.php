@@ -18,6 +18,27 @@ class SimpleAssetTest extends \PHPUnit_Framework_TestCase
                             SimpleAsset::config());
     }
 
+    function testConfigWithoutArgs()
+    {
+        $config = SimpleAsset::config();
+        $this->assertTrue(is_array($config));
+        $this->assertTrue(sizeof($config) > 0);
+    }
+
+    function testConfigWithEmptyArray()
+    {
+        $config = SimpleAsset::config(array());
+
+        $this->assertTrue(sizeof($config) == 0);
+    }
+
+    function testConfigWithArray()
+    {
+        SimpleAsset::config(array());
+        $this->assertEquals(array('foo' => 'bar'),
+                            SimpleAsset::config(array('foo' => 'bar')));
+    }
+
     function testPath_with_correct_path()
     {
         $this->assertEquals(

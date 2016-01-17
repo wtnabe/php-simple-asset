@@ -19,10 +19,14 @@ class SimpleAsset
      */
     static function config($opts = null)
     {
-        static $config;
+        static $config = array();
 
         if ( is_array($opts) ) {
-            $config = $opts;
+            if ( sizeof($opts) > 0 ) {
+                $config = array_merge($config, $opts);
+            } else {
+                $config = array();
+            }
         }
 
         return $config;
