@@ -46,6 +46,13 @@ class SimpleAssetTest extends \PHPUnit_Framework_TestCase
                             SimpleAsset::config(array('foo' => 'bar')));
     }
 
+    function testConfigWithName()
+    {
+        $this->assertEquals(array('foo' => 'bar'),
+                            SimpleAsset::config(array('foo' => 'bar')));
+        $this->assertEquals('bar', SimpleAsset::config('foo'));
+    }
+
     function testPath_with_correct_path()
     {
         SimpleAsset::config(array('store'     => 'file',

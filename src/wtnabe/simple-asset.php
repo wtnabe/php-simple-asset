@@ -14,21 +14,35 @@ foreach ( ___files(dirname(__FILE__).'/simple-asset') as $file ) {
 class SimpleAsset
 {
     /**
-     * @param  string $opts
-     * @return string
+     * @param  mixed $opts
+     * @return mixed
      */
     static function config($opts = null)
     {
         static $config = array();
 
+        /*
+         * getter
+         */
+        if ( is_string($opts) and array_key_exists($opts, $config) ) {
+            return $config[$opts];
+        }
+
+        /*
+         * setter
+         */
         if ( is_array($opts) ) {
             if ( sizeof($opts) > 0 ) {
                 $config = array_merge($config, $opts);
             } else {
                 $config = array();
             }
+
         }
 
+        /*
+         * whole
+         */
         return $config;
     }
 
