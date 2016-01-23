@@ -25,6 +25,44 @@ class SimpleAssetStoreFile extends SimpleAssetStoreBase
     {
         return SimpleAssetUtil::joinpath($this->config['store_dir'], $path);
     }
+
+    /**
+     * @param  string $fullpath
+     * @param  string $digest
+     * @return string or null
+     */
+    function storeDigestToFile($fullpath, $digest)
+    {
+        $dir = dirname($fullpath);
+        if ( !file_exists($dir) ) {
+            mkdir($dir, $this->_dir_mode(), true);
+        }
+
+        if ( file_put_contents($fullpath, $digest, LOCK_EX) &&
+             chmod($fullpath, $this->_file_mode()) ) {
+            return $digest;
+        }
+    }
+
+    /**
+     * @return int
+     */
+    function _dir_mode()
+    {
+        return array_key_exists('store_dir_group_writable', $this->config)
+            ? 0775
+            : 0755;
+    }
+
+    /**
+     * @return int
+     */
+    function _file_mode()
+    {
+        return array_key_exists('store_file_group_writable', $this->config)
+            ? 0664
+            : 0644;
+    }
 }
 
 /*
