@@ -23,16 +23,9 @@ class SimpleAssetStoreFile extends SimpleAssetStoreBase
      */
     function _digestFile($path)
     {
-        return preg_replace(
-                            '/\/+/',
-                            '/',
-                            join('/',
-                                 array($this->config['store_dir'],
-                                       $path)
-                                 )
-                            );
+        return SimpleAssetUtil::joinpath($this->config['store_dir'], $path);
     }
- }
+}
 
 /*
 Local Variables:
