@@ -6,6 +6,7 @@ class SimpleAssetTest extends \PHPUnit_Framework_TestCase
     function setUp()
     {
         SimpleAsset::config(array());
+        system('rm -fr '.dirname(__FILE__).'/_digests/*');
     }
 
     function tearDown()
@@ -62,6 +63,15 @@ class SimpleAssetTest extends \PHPUnit_Framework_TestCase
                             '/stylesheets/common.css?012345',
                             SimpleAsset::path('/stylesheets/common.css')
                             );
+    }
+
+    function testPrecompile()
+    {
+        $store_dir = dirname(__FILE__).'/_digests/';
+
+        SimpleAsset::precompile(array('store' => 'file',
+                                      'store_dir' => $store_dir,
+                                      'asset_dir' => dirname(__FILE__).'/public/'));
     }
 }
 

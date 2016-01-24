@@ -21,13 +21,13 @@ class SimpleAssetStoreFileTest extends \PHPUnit_Framework_TestCase
     {
         $store = new SimpleAssetStoreFile(array('store_dir' => dirname(__FILE__).'/_digests'));
 
-        $path = SimpleAssetUtil::joinpath($store->config['store_dir'],
-                                          'path/to/file.css');
-        @unlink($path);
+        $path = 'path/to/file.css';
+        $digest_path = $store->_digestFile($path);
+        @unlink($digest_path);
 
         $this->assertEquals('12345',
                             $store->storeDigestToFile($path, '12345'));
-        $this->assertTrue(file_exists($path));
+        $this->assertTrue(file_exists($digest_path));
     }
 }
 

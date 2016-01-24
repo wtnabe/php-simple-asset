@@ -40,8 +40,26 @@ class SimpleAssetStoreBase
                       );
     }
 
+    /**
+     * @param  string $path
+     * @return string
+     */
     function setDigest($path)
     {
+        preg_match_all('/([A-Z][a-z]+)/', get_class($this), $capture);
+        $method = "storeDigestTo".end($capture[0]);
+
+        return $this->{$method}($path,
+                                $this->calculateDigest(SimpleAssetUtil::assetFullpath($path)));
+    }
+
+    /**
+     * @param  string $fullpath
+     * @return string
+     */
+    function calculateDigest($fullpath)
+    {
+        return md5_file($fullpath);
     }
 
     /**

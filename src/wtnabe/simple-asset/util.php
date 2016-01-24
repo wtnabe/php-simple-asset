@@ -19,6 +19,15 @@ class SimpleAssetUtil
                             '/',
                             join('/', array_filter($args)));
     }
+
+    /**
+     * @param  string $path
+     * @return string
+     */
+    public static function assetFullpath($path)
+    {
+        return self::joinpath(SimpleAsset::config('asset_dir'), $path);
+    }
 }
 
 /*

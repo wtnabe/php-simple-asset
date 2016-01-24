@@ -56,6 +56,23 @@ class SimpleAsset
 
         return "{$store->path($path)}";
     }
+
+    /**
+     * @param array $config
+     */
+    public static function precompile($config = null)
+    {
+        if ( is_array($config) && sizeof($config) > 0 ) {
+            SimpleAsset::config($config);
+        }
+
+        $store = SimpleAssetStore::factory();
+        $files = new SimpleAssetFiles();
+
+        foreach ( $files->glob() as $path ) {
+            $store->setDigest($path);
+        }
+    }
 }
 
 /*

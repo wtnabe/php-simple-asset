@@ -23,23 +23,25 @@ class SimpleAssetStoreFile extends SimpleAssetStoreBase
      */
     function _digestFile($path)
     {
-        return SimpleAssetUtil::joinpath($this->config['store_dir'], $path);
+        return SimpleAssetUtil::joinpath($this->config['store_dir'], $path.".md5");
     }
 
     /**
-     * @param  string $fullpath
+     * @param  string $path
      * @param  string $digest
      * @return string or null
      */
-    function storeDigestToFile($fullpath, $digest)
+    function storeDigestToFile($path, $digest)
     {
-        $dir = dirname($fullpath);
+        $digest_path = $this->_digestFile($path);
+
+        $dir = dirname($digest_path);
         if ( !file_exists($dir) ) {
             mkdir($dir, $this->_dir_mode(), true);
         }
 
-        if ( file_put_contents($fullpath, $digest, LOCK_EX) &&
-             chmod($fullpath, $this->_file_mode()) ) {
+        if ( file_put_contents($digest_path, $digest, LOCK_EX) &&
+             chmod($digest_path, $this->_file_mode()) ) {
             return $digest;
         }
     }
