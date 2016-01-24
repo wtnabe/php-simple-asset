@@ -37,8 +37,8 @@ class SimpleAssetFiles
             $dir    = $config['asset_dir'];
         }
 
-        $files = glob("{$dir}/*.{{$this->suffix_brace}}", GLOB_BRACE);
-        $dirs  = array_filter(glob("{$dir}/*"), 'is_dir');
+        $files = glob(SimpleAssetUtil::joinpath($dir, "*.{{$this->suffix_brace}}"), GLOB_BRACE);
+        $dirs  = array_filter(glob(SimpleAssetUtil::joinpath($dir, "*")), 'is_dir');
 
         if ( sizeof($dirs) > 0 ) {
             foreach ( $dirs as $dir ) {
@@ -46,7 +46,16 @@ class SimpleAssetFiles
             }
         }
 
-        return $files;
+        return array_map(array($this, '_strip_asset_dir'), $files);
+    }
+
+    /**
+     * @param  string $path
+     * @return string
+     */
+    function _strip_asset_dir($path)
+    {
+        return str_replace(SimpleAsset::config('asset_dir'), '', $path);
     }
 }
 
